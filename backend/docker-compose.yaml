@@ -5,12 +5,12 @@
 # - crea los volumenes
 # - levanta ambos contenedores
 # - expone los puertos
-# - mantiene los datos guardados
+# - persiste los datos
 
 # contenedores de docker que se van a ejecutar
 services:
   mongo: # nombre del servicio
-    image: mongo:6 # usar la imagen oficial de mongodb version 6, si no existe docker lo descarga automaticamente
+    image: mongo:7 # usar la imagen oficial de mongodb version 7, si no existe docker lo descarga automaticamente
     container_name: chat_mongo # nombre del contenedor
     restart: unless-stopped # docker reinicia automaticamente el contenedor si se cae, exepto si se detiene manualmente con docker stop
     ports:
