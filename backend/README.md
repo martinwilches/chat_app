@@ -12,6 +12,7 @@
 - redis
 - socket.io
 - cookie
+- nanoid
 
 ## Development Packages
 
