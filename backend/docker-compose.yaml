@@ -1,0 +1,44 @@
+# docker-compose.yaml permite definir y ejecutar varios contenedores de docker de forma conjunta // permite levantar el entorno de desarrollo (backend + bases de datos + cache)
+
+# bash `docker compose up`
+# - docker descarga mongo y redis
+# - crea los volumenes
+# - levanta ambos contenedores
+# - expone los puertos
+# - mantiene los datos guardados
+
+# contenedores de docker que se van a ejecutar
+services:
+  mongo: # nombre del servicio
+    image: mongo:6 # usar la imagen oficial de mongodb version 6, si no existe docker lo descarga automaticamente
+    container_name: chat_mongo # nombre del contenedor
+    restart: unless-stopped # docker reinicia automaticamente el contenedor si se cae, exepto si se detiene manualmente con docker stop
+    ports:
+      # mongo corre dentro del contenedor en el puerto 27017
+      # se expone al PC en el mismo puerto
+      # se puede realizar la conexion desde compass `mongodb://localhost:27017`
+      - "27017:27017"
+    volumes:
+      # mongo guarda sus datos en /data/db
+      # mongo_data es un volumen de docker
+      # los datos no se borran aunque se apague el contenedor
+      # sin volumen se perderian todos los datos al reiniciar
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7
+    container_name: chats_redis
+    restart: unless-stopped
+    ports:
+      # redis usa el puerto 6379 `redis://localhost:6379`
+      - "6379:6379"
+    volumes:
+      # redis puede guardar datos en /data
+      # el volumen redis_data evitar perder datos
+      - redis_data:/data
+
+# docker crea espacios de almacenamiento // discos duros virtuales
+# persisten aunque se borren los contenedores
+volumes:
+  mongo_data:
+  redis_data:
