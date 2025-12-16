@@ -5,6 +5,7 @@ import cors from 'cors'
 import http from 'http'
 
 import { connectDB } from './utils/db.js'
+import authRouter from './routes/auth.routes.js'
 
 dotenv.config()
 
@@ -20,6 +21,10 @@ app.use(
 )
 
 app.use(cookieParser())
+app.use(express.json()) // acceder a los datos enviados a traves de req.body
+
+// routes
+app.use('/api/v1/auth', authRouter)
 
 try {
     await connectDB()
