@@ -110,7 +110,6 @@ class AuthController {
             })
 
             return res.json({
-                success: true,
                 user: {
                     id: user.id,
                     email: user.email,
@@ -121,6 +120,28 @@ class AuthController {
             })
         } catch (error) {
             console.error('User login error: ', error)
+
+            return res.status(500).json({
+                message: 'Internal server error',
+            })
+        }
+    }
+
+    static logout(req, res) {}
+
+    static user(req, res) {
+        try {
+            const user = User.findById(req.user.id).select('-password') // seleccionar todos los datos del usuario excepto la contraseña
+
+            if (!user) {
+                return res.status(400).json({
+                    message: 'User does not exist',
+                })
+            }
+
+            return res.json(user)
+        } catch (error) {
+            console.error('Fetch user error: ', error)
 
             return res.status(500).json({
                 message: 'Internal server error',
