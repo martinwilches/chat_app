@@ -1,3 +1,6 @@
-export const App = () => {
-    return <div>Welcome to my chat app</div>
+// React.FC -> Componente de React
+const App: React.FC = () => {
+    return <>Welcome to my chat app</>
 }
+
+export default App
