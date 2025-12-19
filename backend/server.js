@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(express.json()) // acceder a los datos enviados a traves de req.body
 
 // routes
-app.use('/api/v1/auth', authRouter)
+app.use('/api/auth', authRouter)
 
 try {
     await connectDB()
