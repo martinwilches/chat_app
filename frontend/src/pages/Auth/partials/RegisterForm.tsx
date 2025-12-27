@@ -47,7 +47,11 @@ const registerSchema = z
 type RegisterFormData = z.infer<typeof registerSchema>
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
-    const { register, handleSubmit } = useForm({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
         resolver: zodResolver(registerSchema),
     })
 
@@ -75,97 +79,107 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
             <p className="text-gray-500 text-sm mb-8">Join our community</p>
 
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label
-                        htmlFor="fullName"
-                        className="block text-gray-700 mb-2 text-sm"
-                    >
+                <div className="mb-2">
+                    <label htmlFor="fullName" className="label-form">
                         Full name
                     </label>
-                    <div className="relative mb-2">
-                        <User className="absolute inset-y-0 left-3 size-5 text-gray-400 top-1/2 -translate-y-1/2" />
+                    <div className="relative">
+                        <User className="icon-input-form" />
                         <input
                             {...register('fullName')}
-                            className="text-sm w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            className="input-form"
                             placeholder="John Doe"
                             autoComplete="off"
                         />
                     </div>
+                    {errors.fullName && (
+                        <span className="text-xs text-red-500">
+                            {errors.fullName.message}
+                        </span>
+                    )}
                 </div>
 
-                <div>
-                    <label
-                        htmlFor="username"
-                        className="block text-gray-700 mb-2 text-sm"
-                    >
+                <div className="mb-2">
+                    <label htmlFor="username" className="label-form">
                         Username
                     </label>
-                    <div className="relative mb-2">
-                        <User className="absolute inset-y-0 left-3 size-5 text-gray-400 top-1/2 -translate-y-1/2" />
+                    <div className="relative">
+                        <User className="icon-input-form" />
                         <input
                             {...register('username')}
-                            className="text-sm w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            className="input-form"
                             placeholder="johndoe"
                             autoComplete="off"
                         />
                     </div>
+                    {errors.username && (
+                        <span className="text-xs text-red-500">
+                            {errors.username.message}
+                        </span>
+                    )}
                 </div>
 
-                <div>
-                    <label
-                        htmlFor="email"
-                        className="block text-gray-700 mb-2 text-sm"
-                    >
+                <div className="mb-2">
+                    <label htmlFor="email" className="label-form">
                         Email
                     </label>
-                    <div className="relative mb-2">
-                        <Mail className="absolute inset-y-0 left-3 size-5 text-gray-400 top-1/2 -translate-y-1/2" />
+                    <div className="relative">
+                        <Mail className="icon-input-form" />
                         <input
                             {...register('email')}
-                            className="text-sm w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            className="input-form"
                             placeholder="johndoe@example.com"
                             autoComplete="off"
                             type="email"
                         />
                     </div>
+                    {errors.email && (
+                        <span className="text-xs text-red-500">
+                            {errors.email.message}
+                        </span>
+                    )}
                 </div>
 
-                <div>
-                    <label
-                        htmlFor="password"
-                        className="block text-gray-700 mb-2 text-sm"
-                    >
+                <div className="mb-2">
+                    <label htmlFor="password" className="label-form">
                         Password
                     </label>
-                    <div className="relative mb-2">
-                        <KeyRound className="absolute inset-y-0 left-3 size-5 text-gray-400 top-1/2 -translate-y-1/2" />
+                    <div className="relative">
+                        <KeyRound className="icon-input-form" />
                         <input
                             {...register('password')}
-                            className="text-sm w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            className="input-form"
                             placeholder="******"
                             autoComplete="off"
                             type="password"
                         />
                     </div>
+                    {errors.password && (
+                        <span className="text-xs text-red-500">
+                            {errors.password.message}
+                        </span>
+                    )}
                 </div>
 
-                <div>
-                    <label
-                        htmlFor="confirmPassword"
-                        className="block text-gray-700 mb-2 text-sm"
-                    >
+                <div className="mb-2">
+                    <label htmlFor="confirmPassword" className="label-form">
                         Confirm password
                     </label>
-                    <div className="relative mb-2">
-                        <KeyRound className="absolute inset-y-0 left-3 size-5 text-gray-400 top-1/2 -translate-y-1/2" />
+                    <div className="relative">
+                        <KeyRound className="icon-input-form" />
                         <input
                             {...register('confirmPassword')}
-                            className="text-sm w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            className="input-form"
                             placeholder="******"
                             autoComplete="off"
                             type="password"
                         />
                     </div>
+                    {errors.confirmPassword && (
+                        <span className="text-xs text-red-500">
+                            {errors.confirmPassword.message}
+                        </span>
+                    )}
                 </div>
 
                 <button
@@ -180,6 +194,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
                     )}
                 </button>
             </form>
+
+            <div className="text-center text-sm mt-4">
+                <span className="text-gray-600">
+                    Already have an account?{' '}
+                    <span
+                        onClick={onSwitch}
+                        className="text-sky-500 font-medium cursor-pointer hover:underline"
+                    >
+                        Sign In
+                    </span>
+                </span>
+            </div>
         </>
     )
 }

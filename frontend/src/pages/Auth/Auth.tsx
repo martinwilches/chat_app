@@ -35,11 +35,11 @@ const Auth: React.FC = () => {
                 <div className="w-full md:w-1/2 flex p-8 justify-center items-center">
                     {isLogin ? (
                         <div className="w-full md:w-100">
-                            <LoginForm onSwitch={() => setIsLogin(true)} />
+                            <LoginForm onSwitch={() => setIsLogin(false)} />
                         </div>
                     ) : (
                         <div className="w-full md:w-100">
-                            <RegisterForm onSwitch={() => setIsLogin(false)} />
+                            <RegisterForm onSwitch={() => setIsLogin(true)} />
                         </div>
                     )}
                 </div>
