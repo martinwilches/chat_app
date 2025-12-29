@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { KeyRound, Mail, User } from 'lucide-react'
+import { KeyRound, Loader, Mail, User } from 'lucide-react'
 
 interface RegisterFormProps {
     onSwitch: () => void
@@ -59,11 +59,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
         mutationFn: authService.register, // funcion para el registro de usuarios
         onSuccess: () => {
             onSwitch()
-            toast.success('Registered successfully')
+            toast.success('Account created successfully!')
         },
         onError: (error) => {
             const errorMsg =
-                error.response?.data?.message || 'Registration failed'
+                error.response?.data?.message ||
+                'An error ocurred during registration process'
             toast.error(errorMsg)
         },
     })
@@ -185,7 +186,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSwitch }) => {
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full bg-sky-500 text-white font-medium py-3 px-4 rounded-lg transition duration-300 flex justify-center items-center hover:bg-sky-600 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="form-submit-btn"
                 >
                     {isPending ? (
                         <Loader className="animate-spin size-5" />
