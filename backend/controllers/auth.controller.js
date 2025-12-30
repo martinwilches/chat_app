@@ -103,7 +103,7 @@ class AuthController {
             )
 
             // añadir a la response una cookie cuyo nombre es `jwt` y su valor el token generado
-            res.cookie('chat-app', token, {
+            res.cookie('jwt-chat', token, {
                 maxAge: 7 * 24 * 60 * 60 * 1000, // expiracion de la cookie `7 dias`
                 httpOnly: true, // la cookie no podra ser accedida por el cliente JavaScript
                 secure: process.env.NODE_ENV !== 'development', // en entorno de produccion, la cookie solo se enviara a traves de conexion https
