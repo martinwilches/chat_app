@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router'
 import { toast } from 'sonner'
 
 import { authService } from '../../../services/auth.service'
-import { authStore } from '../../../stores/auth.store'
+import { useAuthStore } from '../../../stores/auth.store'
 
 // prop utilizada por el componente para alternar la vista entre el formulario de login y registro
 interface LoginFormProps {
@@ -27,8 +27,7 @@ type LoginFormData = z.infer<typeof loginSchema>
 // `<LoginFormProps>` indica que el componente debe recibir las props definidas en la interfaz
 const LoginForm: React.FC<LoginFormProps> = ({ onSwitch }) => {
     const navigate = useNavigate()
-
-    const store = authStore()
+    const store = useAuthStore()
 
     const {
         register,

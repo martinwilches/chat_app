@@ -3,15 +3,21 @@ import Auth from './pages/Auth/Auth'
 import Chat from './pages/Chat/Chat'
 
 import { Toaster } from 'sonner'
+import { PrivateRoute, PublicRoute } from './pages/PageGuards'
 
 // React.FC -> Componente de React
 const App: React.FC = () => {
     return (
         <>
-            {/* Routes -> contenerdor para la definicion de las rutas */}
+            {/* Routes -> contenedor para la definicion de las rutas */}
             <Routes>
-                <Route path="/" element={<Chat />}></Route>
-                <Route path="/auth" element={<Auth />}></Route>
+                {/* ruta protegida para otorgar acceso unicamente a usuarios autenticados */}
+                <Route element={<PrivateRoute />}>
+                    <Route path="/" element={<Chat />}></Route>
+                </Route>
+                <Route element={<PublicRoute />}>
+                    <Route path="/auth" element={<Auth />}></Route>
+                </Route>
             </Routes>
             <Toaster richColors position="top-right" />
         </>
