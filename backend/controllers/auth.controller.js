@@ -129,9 +129,9 @@ class AuthController {
 
     static logout(req, res) {}
 
-    static user(req, res) {
+    static async user (req, res) {
         try {
-            const user = User.findById(req.user.id).select('-password') // seleccionar todos los datos del usuario excepto la contraseña
+            const user = await User.findById(req.user.id).select('-password') // seleccionar todos los datos del usuario excepto la contraseña
 
             if (!user) {
                 return res.status(400).json({
