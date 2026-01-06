@@ -40,7 +40,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSwitch }) => {
     const { mutate, isPending } = useMutation({
         mutationFn: authService.login,
         onSuccess: (response) => {
-            toast.success('Login successfully!')
+            toast.success('Log in successfully!')
             store.setUser(response.user)
             return navigate('/')
         },

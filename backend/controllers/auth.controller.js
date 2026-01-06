@@ -127,9 +127,12 @@ class AuthController {
         }
     }
 
-    static logout(req, res) {}
+    static logout(req, res) {
+        res.cookie('jwt-chat', '', { maxAge: 0 }) // remover la cookie de inicio de sesion
+        res.json({ message: 'Logged out successfully!' })
+    }
 
-    static async user (req, res) {
+    static async user(req, res) {
         try {
             const user = await User.findById(req.user.id).select('-password') // seleccionar todos los datos del usuario excepto la contraseña
 

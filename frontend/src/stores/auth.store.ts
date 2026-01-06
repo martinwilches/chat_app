@@ -6,6 +6,7 @@ export type User = {
     id: string
     fullName: string
     username: string
+    connectCode: string
 }
 
 interface AuthState {
