@@ -5,7 +5,13 @@ import { useAuth } from '../hooks/useAuth'
 export function PrivateRoute() {
     const { data: user, isPending, error } = useAuth()
 
-    if (isPending) return <div>Loading...</div>
+    if (isPending) {
+        return (
+            <div className="min-h-screen flex w-full items-center justify-center space-x-3">
+                <div className='size-10 bg-sky-200 rounded-full animate-bounce'></div>
+            </div>
+        )
+    }
 
     // si ocurrio un error o el usuario no esta autenticado, se redirecciona a la vista de autenticacion
     if (error || !user) return <Navigate to="/auth" />
@@ -16,7 +22,13 @@ export function PrivateRoute() {
 export function PublicRoute() {
     const { data: user, isPending } = useAuth()
 
-    if (isPending) return <div>Loading...</div>
+    if (isPending) {
+        return (
+            <div className="min-h-screen flex w-full items-center justify-center space-x-3">
+                <div className='size-10 bg-sky-200 rounded-full animate-bounce'></div>
+            </div>
+        )
+    }
 
     // si el usuario se encuentra autenticado, por defecto se redirige a la ruta raiz de la aplicacion
     if (user) return <Navigate to="/" />
